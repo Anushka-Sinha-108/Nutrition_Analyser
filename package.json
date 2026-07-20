@@ -1,0 +1,23 @@
+{
+  "name": "nutrition_analyser",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "echo \"No linter configured\"",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "date-fns": "^4.4.0",
+    "firebase": "^12.2.1",
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.2",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.5"
+  }
+}
