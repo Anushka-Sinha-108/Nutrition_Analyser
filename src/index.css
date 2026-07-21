@@ -1,1 +1,46 @@
 @import "tailwindcss";
+
+:root {
+  color: #172033;
+  background: #f6faf8;
+}
+
+body {
+  min-width: 320px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(161, 237, 204, 0.34), transparent 26rem),
+    radial-gradient(circle at 100% 12%, rgba(255, 225, 187, 0.34), transparent 24rem),
+    #f6faf8;
+}
+
+.health-card {
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.055);
+}
+
+.health-card:hover {
+  box-shadow: 0 18px 38px rgba(15, 23, 42, 0.09);
+}
+
+.soft-grid {
+  background-image:
+    linear-gradient(rgba(16, 185, 129, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+@keyframes food-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-5deg);
+  }
+
+  50% {
+    transform: translate3d(0, -22px, 0) rotate(8deg);
+  }
+}
+
+.food-float {
+  animation: food-float 7s ease-in-out infinite;
+}

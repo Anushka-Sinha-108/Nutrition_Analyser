@@ -1,39 +1,62 @@
-export const nutrientWeights = {
-  calories: 25,
+import type { MealType, NutritionTotals } from '../types/nutrition';
+
+/** Daily college-student nutrition targets. Units: kcal, grams, or milligrams as appropriate. */
+export const DAILY_TARGETS: Required<Pick<NutritionTotals, 'calories' | 'protein' | 'fiber' | 'iron' | 'calcium' | 'vitaminC' | 'vitaminA' | 'potassium'>> = {
+  calories: 2200,
+  protein: 55,
+  fiber: 25,
+  iron: 14,
+  calcium: 1000,
+  vitaminC: 65,
+  vitaminA: 600,
+  potassium: 3500,
+};
+
+/** Weights total 100. A nutrient can earn no more than its assigned weight. */
+export const SCORE_WEIGHTS = {
+  calories: 10,
   protein: 25,
-  carbs: 10,
-  fat: 8,
-  fiber: 15,
-  iron: 10,
-  calcium: 4,
-  vitaminC: 3,
+  fiber: 20,
+  iron: 15,
+  calcium: 10,
+  vitaminC: 10,
+  vitaminA: 5,
+  potassium: 5,
 } as const;
 
-function piecewiseScore(R: number) {
-  if (Number.isNaN(R) || !isFinite(R)) return 0;
-  if (R >= 0.9 && R <= 1.1) return 100;
-  if (R < 0.5) return Math.max(0, Math.round(R * 100));
-  if (R < 0.7) return 50 + ((R - 0.5) / 0.2) * 30; // 50 -> 80
-  if (R < 0.9) return 80 + ((R - 0.7) / 0.2) * 20; // 80 -> 100
-  if (R <= 1.3) return 100 - ((R - 1.1) / 0.2) * 25; // 100 -> 75
-  if (R <= 1.6) return 75 - ((R - 1.3) / 0.3) * 40; // 75 -> 35
-  if (R <= 2.0) return 35 - ((R - 1.6) / 0.4) * 25; // 35 -> 10
-  return 5;
+export const MEAL_PERCENTAGES: Record<MealType, number> = {
+  breakfast: 0.25,
+  lunch: 0.35,
+  snacks: 0.15,
+  dinner: 0.25,
+};
+
+type ScoreNutrient = keyof typeof SCORE_WEIGHTS;
+
+export function calculateNutritionScore(nutrition: NutritionTotals, targets: NutritionTotals = DAILY_TARGETS): number {
+  return Math.round((Object.keys(SCORE_WEIGHTS) as ScoreNutrient[]).reduce((score, nutrient) => {
+    const actual = Number(nutrition[nutrient] ?? 0);
+    const target = Number(targets[nutrient] ?? 0);
+    if (target <= 0) return score;
+    return score + Math.min(Math.max(actual / target, 0), 1) * SCORE_WEIGHTS[nutrient];
+  }, 0));
 }
 
-export function calculateNutritionScore(consumed: Record<string, number>, targets: Record<string, number>) {
-  let totalWeight = 0;
-  let total = 0;
-  (Object.keys(nutrientWeights) as Array<keyof typeof nutrientWeights>).forEach((k) => {
-    const weight = nutrientWeights[k];
-    const target = targets[k] ?? 0;
-    if (!target) return;
-    const value = consumed[k] ?? 0;
-    const R = value / target;
-    const score = piecewiseScore(R);
-    total += score * weight;
-    totalWeight += weight;
-  });
-  if (totalWeight === 0) return 0;
-  return Math.round(total / totalWeight);
+export function getMealTargets(meal: MealType): NutritionTotals {
+  const percentage = MEAL_PERCENTAGES[meal];
+  return (Object.keys(DAILY_TARGETS) as ScoreNutrient[]).reduce<NutritionTotals>((targets, nutrient) => {
+    targets[nutrient] = DAILY_TARGETS[nutrient] * percentage;
+    return targets;
+  }, {});
+}
+
+export function calculateMealScore(nutrition: NutritionTotals, meal: MealType): number {
+  return calculateNutritionScore(nutrition, getMealTargets(meal));
+}
+
+export function getScoreMessage(score: number) {
+  if (score >= 80) return { label: 'Excellent', message: 'Your nutrition intake is well balanced today.' };
+  if (score >= 60) return { label: 'Good', message: 'Your nutrition is fairly balanced, with some room for improvement.' };
+  if (score >= 40) return { label: 'Needs improvement', message: 'Some important nutrients may be missing from your intake today.' };
+  return { label: 'Low', message: 'Your intake is low in several important nutrients.' };
 }

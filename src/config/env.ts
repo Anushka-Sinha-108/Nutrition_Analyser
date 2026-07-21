@@ -6,5 +6,5 @@ export const env = {
   VITE_FIREBASE_MESSAGING_SENDER_ID: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID ?? '',
   VITE_FIREBASE_APP_ID: import.meta.env.VITE_FIREBASE_APP_ID ?? '',
   VITE_FIREBASE_MEASUREMENT_ID: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID ?? '',
-  VITE_GEMINI_API_KEY: import.meta.env.VITE_GEMINI_API_KEY ?? '',
+  // VITE_GEMINI_API_KEY: import.meta.env.VITE_GEMINI_API_KEY ?? '',
 };

@@ -1,0 +1,16 @@
+menu_id,date,meal_time,food_id,mess_name
+main_2026_07_21_breakfast_paratha,2026-07-21,breakfast,aloo_paratha,Main Mess
+main_2026_07_21_breakfast_curd,2026-07-21,breakfast,plain_curd,Main Mess
+main_2026_07_21_breakfast_egg,2026-07-21,breakfast,boiled_egg,Main Mess
+main_2026_07_21_breakfast_tea,2026-07-21,breakfast,milk_tea,Main Mess
+main_2026_07_21_lunch_dal,2026-07-21,lunch,dal_tadka,Main Mess
+main_2026_07_21_lunch_rice,2026-07-21,lunch,steamed_rice,Main Mess
+main_2026_07_21_lunch_roti,2026-07-21,lunch,whole_wheat_roti,Main Mess
+main_2026_07_21_lunch_veg,2026-07-21,lunch,mixed_veg,Main Mess
+main_2026_07_21_snacks_samosa,2026-07-21,snacks,vegetable_samosa,Main Mess
+main_2026_07_21_snacks_chana,2026-07-21,snacks,roasted_chana,Main Mess
+main_2026_07_21_snacks_banana,2026-07-21,snacks,banana,Main Mess
+main_2026_07_21_dinner_paneer,2026-07-21,dinner,paneer_curry,Main Mess
+main_2026_07_21_dinner_roti,2026-07-21,dinner,whole_wheat_roti,Main Mess
+main_2026_07_21_dinner_rice,2026-07-21,dinner,steamed_rice,Main Mess
+main_2026_07_21_dinner_kheer,2026-07-21,dinner,rice_kheer,Main Mess

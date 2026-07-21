@@ -29,6 +29,9 @@ export function parseFoodCatalogue(file: File): Promise<FoodCatalogueItem[]> {
               fiberG: numberOrZero(row.fiber_g),
               ironMg: numberOrZero(row.iron_mg),
               calciumMg: numberOrZero(row.calcium_mg),
+              vitaminCMg: numberOrZero(row.vitamin_c_mg),
+              vitaminAUg: numberOrZero(row.vitamin_a_ug),
+              potassiumMg: numberOrZero(row.potassium_mg),
             },
           }));
 

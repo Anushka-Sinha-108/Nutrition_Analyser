@@ -22,6 +22,15 @@
   - tags: ["breakfast","lunch","dinner"]
   - lastUpdated: timestamp
 
+- `food_catalogue/{foodId}`
+  - foodId, foodName, source, servingLabel, dietaryType, costInr
+  - nutrition: { caloriesKcal, proteinG, carbsG, fatG, fiberG, ironMg, calciumMg }
+  - updatedAt: timestamp
+
+- `mess_menus/{menuId}`
+  - menuId, date (YYYY-MM-DD), mealTime, foodId, messName
+  - updatedAt: timestamp
+
 
 ## Notes
 - Use security rules to ensure users can only write to their own `users/{uid}` subcollections.

@@ -13,22 +13,22 @@ import AdminNavbar from './components/AdminNavbar';
 
 // Layout Component for Students
 const UserLayout = () => (
-  <>
+  <div className="min-h-screen bg-gradient-to-b from-emerald-50/70 via-white to-slate-50">
     <UserNavbar />
     <main className="p-6 max-w-7xl mx-auto">
       <Outlet />
     </main>
-  </>
+  </div>
 );
 
 // Layout Component for Admins
 const AdminLayout = () => (
-  <>
+  <div className="min-h-screen bg-slate-50">
     <AdminNavbar />
     <main className="p-6 max-w-7xl mx-auto">
       <Outlet />
     </main>
-  </>
+  </div>
 );
 
 const HomeRedirect = () => {

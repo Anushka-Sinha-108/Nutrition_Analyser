@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { signup } from '../services/authService';
 import { useNavigate, Link } from 'react-router-dom';
+import AuthShell from '../components/AuthShell';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -11,6 +12,7 @@ export default function Signup() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     try {
       await signup(email, password, displayName);
       navigate('/profile-setup');
@@ -20,55 +22,79 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
-      <div className="max-w-md w-full bg-white rounded-xl shadow-md p-8 border border-slate-100">
-        <h2 className="text-2xl font-bold text-slate-800 text-center mb-6">Create an Account</h2>
-        {error && <div className="mb-4 text-sm text-red-600 bg-red-50 p-3 rounded-lg">{error}</div>}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
-            <input
-              type="text"
-              required
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              value={displayName}
-              onChange={(e) => setDisplayName(e.target.value)}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
-            <input
-              type="email"
-              required
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Password</label>
-            <input
-              type="password"
-              required
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-emerald-600 text-white font-medium py-2.5 rounded-lg hover:bg-emerald-700 transition"
-          >
-            Sign Up
-          </button>
-        </form>
-        <p className="mt-4 text-center text-sm text-slate-600">
-          Already have an account?{' '}
-          <Link to="/login" className="text-emerald-600 font-medium hover:underline">
-            Sign In
-          </Link>
-        </p>
-      </div>
-    </div>
+    <AuthShell
+      title="Create your account"
+      subtitle="Start building a healthier routine in a few seconds."
+    >
+      {error && (
+        <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">
+          {error}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="mt-7 space-y-4">
+        <div>
+          <label className="mb-1 block text-sm font-medium text-slate-700">
+            Full Name
+          </label>
+
+          <input
+            type="text"
+            required
+            placeholder="Your full name"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none transition focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-100"
+            value={displayName}
+            onChange={(e) => setDisplayName(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label className="mb-1 block text-sm font-medium text-slate-700">
+            Email Address
+          </label>
+
+          <input
+            type="email"
+            required
+            placeholder="you@example.com"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none transition focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-100"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label className="mb-1 block text-sm font-medium text-slate-700">
+            Password
+          </label>
+
+          <input
+            type="password"
+            required
+            placeholder="Choose a password"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none transition focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-100"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full rounded-xl bg-emerald-600 py-3 font-bold text-white shadow-lg shadow-emerald-600/20 transition hover:-translate-y-0.5 hover:bg-emerald-700"
+        >
+          Sign Up
+        </button>
+      </form>
+
+      <p className="mt-6 text-center text-sm text-slate-600">
+        Already have an account?{' '}
+        <Link
+          to="/login"
+          className="font-medium text-emerald-600 hover:underline"
+        >
+          Sign In
+        </Link>
+      </p>
+    </AuthShell>
   );
 }

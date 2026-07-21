@@ -13,6 +13,9 @@ export interface Nutrition {
   fiberG: number;
   ironMg: number;
   calciumMg: number;
+  vitaminCMg?: number;
+  vitaminAUg?: number;
+  potassiumMg?: number;
 }
 
 export interface FoodCatalogueItem {

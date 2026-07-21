@@ -40,6 +40,10 @@ export function validateMenu(
   menuItems.forEach((menuItem, index) => {
     const row = index + 2;
 
+    if (!menuItem.menuId) {
+      errors.push(`Menu CSV row ${row}: menu_id is missing.`);
+    }
+
     if (!menuItem.date.match(/^\d{4}-\d{2}-\d{2}$/)) {
       errors.push(`Menu CSV row ${row}: date must use YYYY-MM-DD.`);
     }

@@ -11,4 +11,19 @@ export const sampleFoods: FoodItem[] = [
   { id: 'banana', name: 'Banana', category: 'Fruit', servingSizeG: 100, servingLabel: '1 medium', costInr: 10, dietaryPreference: 'vegetarian', nutrition: { calories: 89, protein: 1.1, carbs: 23, fat: 0.3, fiber: 2.6, iron: 0.3, potassium: 358 } },
   { id: 'chana', name: 'Roasted Chana', category: 'Snack', servingSizeG: 40, servingLabel: '1 handful', costInr: 10, dietaryPreference: 'vegetarian', nutrition: { calories: 145, protein: 7.5, carbs: 24, fat: 2.4, fiber: 6.8, iron: 2.4 } },
   { id: 'paneer', name: 'Paneer Curry', category: 'Protein', servingSizeG: 150, servingLabel: '1 bowl', costInr: 35, dietaryPreference: 'vegetarian', nutrition: { calories: 290, protein: 16, carbs: 10, fat: 20, fiber: 2, calcium: 350 } },
+  { id: 'aloo-paratha', name: 'Aloo Paratha', category: 'Breakfast', servingSizeG: 120, servingLabel: '1 paratha', costInr: 18, dietaryPreference: 'vegetarian', nutrition: { calories: 260, protein: 6, carbs: 38, fat: 10, fiber: 4, iron: 2 } },
+  { id: 'tea', name: 'Milk Tea', category: 'Beverage', servingSizeG: 180, servingLabel: '1 cup', costInr: 10, dietaryPreference: 'vegetarian', nutrition: { calories: 75, protein: 2, carbs: 10, fat: 3, calcium: 80 } },
+  { id: 'samosa', name: 'Vegetable Samosa', category: 'Snack', servingSizeG: 90, servingLabel: '1 piece', costInr: 15, dietaryPreference: 'vegetarian', nutrition: { calories: 255, protein: 5, carbs: 30, fat: 13, fiber: 3, iron: 1.5 } },
+  { id: 'apple', name: 'Apple', category: 'Fruit', servingSizeG: 150, servingLabel: '1 medium', costInr: 25, dietaryPreference: 'vegetarian', nutrition: { calories: 95, protein: 0.5, carbs: 25, fat: 0.3, fiber: 4.4, vitaminC: 8 } },
+  { id: 'kheer', name: 'Rice Kheer', category: 'Dessert', servingSizeG: 150, servingLabel: '1 small bowl', costInr: 22, dietaryPreference: 'vegetarian', nutrition: { calories: 210, protein: 5, carbs: 35, fat: 6, calcium: 140 } },
 ];
+
+const foodById = (id: string) => sampleFoods.find((food) => food.id === id)!;
+
+/** Temporary local menu used until the Firestore menu repository is connected. */
+export const sampleMessMenu = {
+  breakfast: [foodById('aloo-paratha'), foodById('curd'), foodById('egg'), foodById('tea')],
+  lunch: [foodById('dal-tadka'), foodById('rice'), foodById('roti'), foodById('mix-veg')],
+  snacks: [foodById('samosa'), foodById('chana'), foodById('banana'), foodById('tea')],
+  dinner: [foodById('paneer'), foodById('roti'), foodById('rice'), foodById('kheer')],
+};

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FileUp, CheckCircle2, CircleAlert } from 'lucide-react';
 import { parseFoodCatalogue, parseMessMenu } from '../services/csvService';
 import { validateFoods, validateMenu } from '../services/csvValidation';
+import { publishFoodCatalogue, publishMessMenu } from '../services/repositories/foodRepository';
 import type { FoodCatalogueItem } from '../types/food';
 import type { MessMenuItem } from '../types/menu';
 
@@ -10,6 +11,7 @@ export default function AdminDataImport() {
   const [menuItems, setMenuItems] = useState<MessMenuItem[]>([]);
   const [errors, setErrors] = useState<string[]>([]);
   const [message, setMessage] = useState('');
+  const [isPublishing, setIsPublishing] = useState(false);
 
   async function handleFoodUpload(file: File) {
     try {
@@ -55,12 +57,33 @@ export default function AdminDataImport() {
     menuItems.length > 0 &&
     errors.length === 0;
 
+  async function publishData() {
+    if (!canPublish) return;
+    setIsPublishing(true);
+    setErrors([]);
+    setMessage('Publishing the catalogue and menu to Firebase…');
+    try {
+      await publishFoodCatalogue(foods);
+      await publishMessMenu(menuItems);
+      setMessage(`${foods.length} foods and ${menuItems.length} menu entries are now available in Firebase.`);
+    } catch (error) {
+      console.error('Could not publish data:', error);
+      setErrors(['Publishing failed. Check your Firebase connection, Firestore rules, and administrator access.']);
+      setMessage('');
+    } finally {
+      setIsPublishing(false);
+    }
+  }
+
   return (
     <div className="space-y-6">
       <div className="rounded-2xl bg-slate-900 p-6 text-white">
         <h1 className="text-2xl font-bold">CSV Data Import</h1>
         <p className="mt-1 text-sm text-slate-300">
           Upload the food catalogue first, then the date-wise mess menu.
+        </p>
+        <p className="mt-3 text-sm text-slate-300">
+          Sample files: <a className="font-semibold text-emerald-300 underline" href="/data/food_catalogue.csv" download>food catalogue</a> and <a className="font-semibold text-emerald-300 underline" href="/data/mess_menu.csv" download>mess menu</a>.
         </p>
       </div>
 
@@ -113,10 +136,12 @@ export default function AdminDataImport() {
       )}
 
       <button
-        disabled={!canPublish}
+        type="button"
+        onClick={() => void publishData()}
+        disabled={!canPublish || isPublishing}
         className="rounded-lg bg-emerald-600 px-5 py-2.5 font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
       >
-        Publish data to Firebase
+        {isPublishing ? 'Publishing…' : 'Publish data to Firebase'}
       </button>
 
       {!canPublish && (

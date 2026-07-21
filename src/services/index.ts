@@ -3,3 +3,4 @@ export * from './mealTrackerService';
 export * from './dashboardService';
 export * from './repositories/messRepository';
 export * from './repositories/menuRepository';
+export * from './repositories/foodRepository';

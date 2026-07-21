@@ -36,3 +36,20 @@ export type MealLog = {
   notes?: string;
   createdAt?: any;
 };
+
+/** UI-only meal types for the Phase 1 dashboard. These are not persisted yet. */
+export type MealType = 'breakfast' | 'lunch' | 'snacks' | 'dinner';
+
+export type MealSource = 'mess' | 'outside' | 'skipped';
+
+export type SelectedFood = {
+  food: FoodItem;
+  quantity: number;
+};
+
+export type DailyMealSelection = {
+  source: MealSource;
+  foods: SelectedFood[];
+};
+
+export type DailyMealSelections = Record<MealType, DailyMealSelection>;
